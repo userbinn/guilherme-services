@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Serviço - Criação de Mockups</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1e1e1e;
+            color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #333;
+            color: #f5f5f5;
+            padding: 1rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin: 0 10px;
+        }
+        nav a {
+            color: #f5f5f5;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: #f5f5f5;
+            transition: all 0.3s;
+        }
+        .menu-mobile {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background-color: #333;
+            width: 100%;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s;
+        }
+        .menu-mobile ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .menu-mobile ul li {
+            text-align: center;
+            padding: 10px;
+            border-bottom: 1px solid #444;
+        }
+        .menu-mobile ul li a {
+            color: #f5f5f5;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        .menu-mobile ul li a:hover {
+            color: #ff9800;
+        }
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        .service-detail {
+            background: #2c2c2c;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            max-width: 100%;
+            margin: 0 auto;
+            max-height: 500px; /* Limita a altura máxima do slider */
+            display: flex;
+            justify-content: center;
+        }
+        .slider {
+            display: flex;
+            transition: transform 0.3s ease;
+            width: 100%;
+        }
+        .slider img {
+            max-width: 100%;
+            height: auto;
+            flex: 0 0 100%;
+            object-fit: cover;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: #f5f5f5;
+            border: none;
+            padding: 1rem;
+            cursor: pointer;
+            z-index: 1000;
+            border-radius: 50%;
+        }
+        .arrow-left {
+            left: 10px;
+        }
+        .arrow-right {
+            right: 10px;
+        }
+        .service-description, .additional-info {
+            margin-bottom: 2rem;
+        }
+        h2, h3 {
+            color: #ff9800;
+        }
+        .service-description p, .additional-info p {
+            line-height: 1.6;
+            margin: 0.5rem 0;
+        }
+        .back-button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #ff9800;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .back-button:hover {
+            background: #e68900;
+        }
+        footer {
+            background: #333;
+            color: #f5f5f5;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+        }
+        footer .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        footer ul {
+            list-style: none;
+            margin: 1rem 0;
+            padding: 0;
+            display: flex;
+        }
+        footer ul li {
+            margin: 0 10px;
+        }
+        footer ul a {
+            color: #ff9800;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            margin: auto;
+            display: block;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            color: #f5f5f5;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: #ff9800;
+        }
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            .menu-toggle {
+                display: flex;
+            }
+            .menu-mobile {
+                display: none; /* Certifica-se de que o menu móvel está oculto por padrão */
+            }
+            .slider-container {
+                max-height: 300px; /* Reduz a altura máxima do slider em telas menores */
+            }
+            .modal-content {
+                max-width: 100%;
+                max-height: 100%;
+            }
+        }
+        @media (max-width: 480px) {
+            .arrow {
+                font-size: 20px;
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Detalhes do Serviço</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="trajetoria.html">Trajetória</a></li>
+                    <li><a href="servico.html">Serviços</a></li>
+                    <li><a href="contatos.html">Contato</a></li>
+                    <li><a href="politicas.html">Política e Ética</a></li>
+                </ul>
+                <div class="menu-toggle" id="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+        <div class="menu-mobile" id="menu-mobile">
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="trajetoria.html">Trajetória</a></li>
+                <li><a href="servico.html">Serviços</a></li>
+                <li><a href="contatos.html">Contato</a></li>
+                <li><a href="politicas.html">Política e Ética</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <section class="service-detail container">
+            <h2>Criação de Mockups</h2>
+            <div class="slider-container">
+                <button class="arrow arrow-left" onclick="prevSlide()">&#10094;</button>
+                <div class="slider">
+                    <img src="images/mockups/flame.webp" alt="Imagem do Serviço 1" onclick="openModal(this.src)">
+                    <img src="images/mockups/flame1.webp" alt="Imagem do Serviço 2" onclick="openModal(this.src)">
+                    <img src="images/mockups/flame2.webp" alt="Imagem do Serviço 3" onclick="openModal(this.src)">
+                    <img src="images/mockups/flame3.webp" alt="Imagem do Serviço 4" onclick="openModal(this.src)">
+                    <img src="images/mockups/flame4.webp" alt="Imagem do Serviço 5" onclick="openModal(this.src)">
+                    <img src="images/mockups/flame5.webp" alt="Imagem do Serviço 6" onclick="openModal(this.src)">
+                </div>
+                <button class="arrow arrow-right" onclick="nextSlide()">&#10095;</button>
+            </div>
+            <div class="service-description">
+                <h3>Descrição do Serviço</h3>
+                <p>A criação de mockups usa imagens e modelos virtuais para simular como o design será aplicado a produtos, como roupas e embalagens. Essa técnica permite visualizar e ajustar o design antes da produção, economizando em amostras físicas e facilitando campanhas de marketing com materiais visuais profissionais e atraentes.</p>
+            </div>
+            <div class="additional-info">
+                <h3>Informações Adicionais</h3>
+                <p>Para uma visualização detalhada, clique na imagem para expandir e ver o modelo em tamanho completo.</p>
+            </div>
+            <a href="servico.html" class="back-button">Voltar para Serviços</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; Guilherme Vinicius - Todos os direitos reservados.</p>
+            <ul>
+                <li><a href="https://wa.me/5521992249812">WhatsApp</a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        let slideIndex = 0;
+
+        function showSlide(index) {
+            const slider = document.querySelector('.slider');
+            const slides = document.querySelectorAll('.slider img');
+            const totalSlides = slides.length;
+            if (index >= totalSlides) {
+                slideIndex = 0;
+            } else if (index < 0) {
+                slideIndex = totalSlides - 1;
+            } else {
+                slideIndex = index;
+            }
+            slider.style.transform = `translateX(${-slideIndex * 100}%)`;
+        }
+
+        function nextSlide() {
+            showSlide(slideIndex + 1);
+        }
+
+        function prevSlide() {
+            showSlide(slideIndex - 1);
+        }
+
+        function openModal(src) {
+            document.getElementById('myModal').style.display = 'flex';
+            document.getElementById('modalImage').src = src;
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').style.display = 'none';
+        }
+
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuMobile = document.getElementById('menu-mobile');
+
+        menuToggle.addEventListener('click', () => {
+            menuMobile.style.display = menuMobile.style.display === 'flex' ? 'none' : 'flex';
+        });
+    </script>
+</body>
+</html>
